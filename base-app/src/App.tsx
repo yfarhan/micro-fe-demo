@@ -4,7 +4,7 @@ import { SimpleGrid, Text, ChakraProvider } from "@chakra-ui/react";
 
 import Search from "./components/Search";
 import Vpcs from "./components/Vpcs";
-import Cart from "./components/Info";
+import Info from "./components/Info";
 
 import { load } from './store';
 import "./index.css";
@@ -34,8 +34,8 @@ const App = () => (
         <Vpcs />
       </div>
       <div>
-        <H3>Cart</H3>
-        <Cart />
+        <H3>Info</H3>
+        <Info />
       </div>
     </SimpleGrid>
   </ChakraProvider>
