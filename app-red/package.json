@@ -30,12 +30,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.4.2",
-    "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.1.5",
-    "framer-motion": "^4.0.3",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "valtio": "^1.0.0"
+    "react-dom": "^16.13.0"
   }
 }

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "01",
+    "name": "VPC 01",
+    "alias": "alias 01",
+    "status": "UP"
+  },
+
+  {
+    "id": "02",
+    "name": "VPC 02",
+    "alias": "alias 02",
+    "status": "DOWN"
+  },
+
+  {
+    "id": "03",
+    "name": "VPC 03",
+    "alias": "alias 03",
+    "status": "DOWN"
+  },
+
+  {
+    "id": "04",
+    "name": "VPC 04",
+    "alias": "alias 04",
+    "status": "UP"
+  }
+]

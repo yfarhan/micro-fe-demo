@@ -1,8 +1,44 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { SimpleGrid, Text, ChakraProvider } from "@chakra-ui/react";
 
+import Search from "./components/Search";
+import Vpcs from "./components/Vpcs";
+import Cart from "./components/Info";
+
+import { load } from './store';
 import "./index.css";
+load('hv_taplist');
 
-const App = () => <div>Hi there, I'm React from Webpack 5.</div>;
+const H3 = ({ children }) => (
+  <Text fontSize="xl" mb={3} fontWeight="bold" textAlign="center">
+    {children}
+  </Text>
+);
+
+const App = () => (
+  <ChakraProvider>
+    <SimpleGrid
+      columns={[1, 1, 3]}
+      spacing={10}
+      m={[1, 1, 6]}
+      templateColumns="1fr 3fr 1fr"
+      gap={1}
+    >
+      <div>
+        <H3>Search</H3>
+        <Search />
+      </div>
+      <div>
+        <H3>Vpcs</H3>
+        <Vpcs />
+      </div>
+      <div>
+        <H3>Cart</H3>
+        <Cart />
+      </div>
+    </SimpleGrid>
+  </ChakraProvider>
+);
 
 ReactDOM.render(<App />, document.getElementById("app"));
