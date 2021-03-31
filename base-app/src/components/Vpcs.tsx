@@ -7,11 +7,11 @@ import Card from "./Card";
 import { MFE_BORDER } from "../constants";
 
 const Taps = () => {
-  const { filteredTaps } = useSnapshot(store);
+  const { filteredVpcs } = useSnapshot(store);
 
   return (
     <Box border={MFE_BORDER}>
-      {filteredTaps.map((vpc) => (
+      {filteredVpcs.map((vpc) => (
         <Card
           key={[vpc.name, vpc.alias].join("")}
           vpc={vpc}

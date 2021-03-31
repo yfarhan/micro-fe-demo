@@ -48,10 +48,16 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: "starter",
+      name: "baseApp",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        './DataComponent': './src/components/DataComponent.tsx',
+        './Info': './src/components/Info.tsx',
+        './Search': './src/components/Search.tsx',
+        './Vpcs': './src/components/Vpcs.tsx',
+        './store': './src/store.ts'
+      },
       shared: {
         ...deps,
         react: {

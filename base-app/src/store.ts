@@ -1,19 +1,17 @@
 import { proxy } from 'valtio';
 import { Vpc } from './types';
 
-export interface Tapstore {
+export interface VpcStore {
   taps: Vpc[];
-  filteredTaps: Vpc[];
+  filteredVpcs: Vpc[];
   cart: Vpc[];
   searchText: string;
-  alcoholLimit: number;
 }
 
-const store = proxy<Tapstore>({
+const store = proxy<VpcStore>({
   taps: [],
   searchText: "",
-  alcoholLimit: 10,
-  filteredTaps: [],
+  filteredVpcs: [],
   cart: [],
 });
 
@@ -28,17 +26,17 @@ const filter = () => {
 }
 
 export const load = (client: string): void => {
-  fetch(`/${client}.json`)
+  fetch(`http://localhost:5000/${client}.json`)
   .then(response => response.json())
   .then((taps: Vpc[]) => {
     store.taps = taps;store;
-    store.filteredTaps = filter();
+    store.filteredVpcs = filter();
   })
 }
 
 export const setSearchText = (searchText: string) => {
   store.searchText = searchText;
-  store.filteredTaps = filter();
+  store.filteredVpcs = filter();
 };
 
 export default store;
