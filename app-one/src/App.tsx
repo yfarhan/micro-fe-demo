@@ -3,23 +3,26 @@ import ReactDOM from "react-dom";
 import {
   extendTheme,
   ChakraProvider,
-  SimpleGrid,
-  Text,
-  Image,
 } from "@chakra-ui/react";
 import Card from "./components/Card";
 import "./index.css";
-import { load } from "baseApp/store";
+
+import { load, subscribe } from "baseApp/store";
 import Search from "baseApp/Search";
 import DataComponent from "baseApp/DataComponent";
 
-load("hv_taplist");
+load("vpcs");
+
+import Counter from './components/Counter';
+
 const customTheme = extendTheme({
   config: {
     useSystemColorMode: false,
     initialColorMode: "dark",
   }
 });
+
+subscribe((state) => console.log('[parent]',  state))
 
 const App = () => <div>
   <ChakraProvider theme={customTheme}>
@@ -34,6 +37,7 @@ const App = () => <div>
       }}
     >
       <div>
+        <Counter />
         <Search />
         <br />
         <DataComponent>

@@ -8,7 +8,7 @@ import Info from "./components/Info";
 
 import { load } from './store';
 import "./index.css";
-load('hv_taplist');
+load('vpcs');
 
 const H3 = ({ children }) => (
   <Text fontSize="xl" mb={3} fontWeight="bold" textAlign="center">

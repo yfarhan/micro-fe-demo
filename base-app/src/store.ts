@@ -1,4 +1,4 @@
-import { proxy } from 'valtio';
+import { proxy, subscribe as valtioSubscribe, snapshot } from 'valtio';
 import { Vpc } from './types';
 
 export interface VpcStore {
@@ -17,7 +17,7 @@ const store = proxy<VpcStore>({
 
 const filter = () => {
   const searchRE = new RegExp(store.searchText, "i");
-  console.log(store);
+
   return store.taps
     .filter(({ name }) => {
       return name.match(searchRE);
@@ -37,6 +37,13 @@ export const load = (client: string): void => {
 export const setSearchText = (searchText: string) => {
   store.searchText = searchText;
   store.filteredVpcs = filter();
+};
+
+export const subscribe = (
+  callback: (state: VpcStore) => void
+): (() => void) => {
+  callback(snapshot(store));
+  return valtioSubscribe(store, () => callback(snapshot(store)));
 };
 
 export default store;
