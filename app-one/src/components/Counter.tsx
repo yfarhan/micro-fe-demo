@@ -1,15 +1,14 @@
-import React from "react";
-import { useSnapshot } from 'valtio'
+import React, { useState } from "react";
 import state from '../store';
 
 const Counter = () => {
-  const { count } = useSnapshot(state);
+  const [count, updateCount] = useState(0);
 
   return (
     <div>
       <h3>{ count }</h3>
       <button onClick={() => {
-        state.count = Date.now();
+        updateCount(Date.now())
       }}>Generate Counter</button>
     </div>
   )

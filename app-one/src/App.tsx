@@ -22,8 +22,6 @@ const customTheme = extendTheme({
   }
 });
 
-subscribe((state) => console.log('[parent]',  state))
-
 const App = () => <div>
   <ChakraProvider theme={customTheme}>
     <div
@@ -38,16 +36,11 @@ const App = () => <div>
     >
       <div>
         <Counter />
-        <Search />
         <br />
-        <DataComponent>
-          {({ filteredVpcs }) => filteredVpcs.map((vpc) => (
-            <Card vpc={vpc} />
-          ))}
-        </DataComponent>
       </div>
     </div>
   </ChakraProvider>
 </div>;
 
-ReactDOM.render(<App />, document.getElementById("app"));
+// ReactDOM.render(<App />, document.getElementById("app"));
+export default App;
