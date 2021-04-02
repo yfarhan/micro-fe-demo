@@ -1,49 +1,45 @@
-import { proxy, subscribe as valtioSubscribe, snapshot } from 'valtio';
 import { Vpc } from './types';
 
-export interface VpcStore {
-  taps: Vpc[];
-  filteredVpcs: Vpc[];
-  cart: Vpc[];
-  searchText: string;
-}
+export const SET_VPCS = 'SET_VPCS';
+export const UPDATE_STORE = 'UPDATE_STORE';
 
-const store = proxy<VpcStore>({
-  taps: [],
-  searchText: "",
-  filteredVpcs: [],
-  cart: [],
+export const updateStore = store => ({
+  type: UPDATE_STORE,
+  store,
 });
 
-const filter = () => {
-  const searchRE = new RegExp(store.searchText, "i");
+const intial = {
+  vpcs: [],
+  filteredVpcs: [],
+  searchText: '',
+};
 
-  return store.taps
+export default (state = intial, action) => {  
+  switch (action.type) {
+    case 'UPDATE_STORE':
+      let newState = { ...state, ...action.store };
+      newState.filteredVpcs = filter(newState.searchText, newState.vpcs);
+      return newState;
+
+    default:
+      return state
+  }
+}
+
+export const filter = (searchText: string, vpcs: Vpc[]): Vpc[] => {
+  const searchRE = new RegExp(searchText, "i");
+
+  return vpcs
     .filter(({ name }) => {
       return name.match(searchRE);
     })
     .slice(0, 15);
 }
 
-export const load = (client: string): void => {
+export const load = (client: string, cb: Function): void => {
   fetch(`http://localhost:5000/${client}.json`)
   .then(response => response.json())
-  .then((taps: Vpc[]) => {
-    store.taps = taps;store;
-    store.filteredVpcs = filter();
+  .then((vpcs: Vpc[]) => {
+    cb({ vpcs });
   })
-}
-
-export const setSearchText = (searchText: string) => {
-  store.searchText = searchText;
-  store.filteredVpcs = filter();
 };
-
-export const subscribe = (
-  callback: (state: VpcStore) => void
-): (() => void) => {
-  callback(snapshot(store));
-  return valtioSubscribe(store, () => callback(snapshot(store)));
-};
-
-export default store;

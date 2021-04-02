@@ -1,28 +1,33 @@
 import React from "react";
+import { connect } from 'react-redux';
 import {
   FormControl,
   FormLabel,
   Input,
   Box,
 } from "@chakra-ui/react";
-import { useSnapshot } from "valtio";
+import { updateStore } from '../store';
 import { MFE_BORDER } from "../constants";
-import store, { setSearchText } from "../store";
 
-const Search = () => {
-  const { searchText } = useSnapshot(store);
-
+const Search = ({ searchText, updateStore }) => {
   return (
     <Box border={MFE_BORDER}>
       <FormControl id="search">
         <FormLabel>Search</FormLabel>
         <Input type="text" 
           value={searchText}
-          onChange={(evt) => setSearchText(evt.target.value)}
+          onChange={(evt) => updateStore({ searchText: evt.target.value })}
         />
       </FormControl>
     </Box>
   );
 };
 
-export default Search;
+const mStoP = state => ({
+  searchText: state.store.searchText
+});
+const mDtoP = d => ({
+  updateStore: clouds => d(updateStore(clouds))
+});
+
+export default connect(mStoP, mDtoP)(Search);
