@@ -4,12 +4,14 @@ import logger from 'redux-logger'
 import { Provider } from 'react-redux';
 import App from './App';
 import { applyMiddleware, createStore } from 'redux';
-// import rootReducer from './reducers';
+import rootReducer from 'baseApp/reducers';
 
-// const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 const Root = () => (
-  <App />
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 ReactDOM.render(<Root />, document.getElementById("app"));

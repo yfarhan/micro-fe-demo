@@ -50,13 +50,16 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "baseApp",
       filename: "remoteEntry.js",
-      remotes: {},
+      remotes: {
+        appRed: 'appRed@http://localhost:5001/remoteEntry.js'
+      },
       exposes: {
         './DataComponent': './src/components/DataComponent.tsx',
         './Info': './src/components/Info.tsx',
         './Search': './src/components/Search.tsx',
         './Vpcs': './src/components/Vpcs.tsx',
-        './store': './src/store.ts'
+        './store': './src/store.ts',
+        './reducers': './src/reducers.ts'
       },
       shared: {
         ...deps,

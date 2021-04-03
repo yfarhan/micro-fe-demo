@@ -24,7 +24,7 @@ export default (state = intial, action) => {
     default:
       return state
   }
-}
+};
 
 export const filter = (searchText: string, vpcs: Vpc[]): Vpc[] => {
   const searchRE = new RegExp(searchText, "i");

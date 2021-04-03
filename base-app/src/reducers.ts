@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import store from './store';
+import storeRed from 'appRed/storeRed';
 
 const rootReducers = combineReducers({
-  store
+  store,
+  storeRed
 });
 
 const reducers = (state, action) => {

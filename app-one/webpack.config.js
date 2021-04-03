@@ -45,7 +45,9 @@ module.exports = {
       remotes: {
         baseApp: 'baseApp@http://localhost:5000/remoteEntry.js'
       },
-      exposes: {},
+      exposes: {
+        './storeRed': './src/storeRed.ts'
+      },
       shared: {
         ...deps,
         react: {

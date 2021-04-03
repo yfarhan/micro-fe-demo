@@ -1,17 +1,24 @@
-import React, { useState } from "react";
-import state from '../store';
+import React from "react";
+import { connect } from 'react-redux';
+import { updateStoreRed } from '../storeRed';
 
-const Counter = () => {
-  const [count, updateCount] = useState(0);
-
+const Counter = ({ counter, updateStoreRed }) => {
   return (
     <div>
-      <h3>{ count }</h3>
+      <h3>{ counter }</h3>
       <button onClick={() => {
-        updateCount(Date.now())
+        updateStoreRed({ counter: ++counter });
       }}>Generate Counter</button>
     </div>
   )
 };
 
-export default Counter;
+const mStoP = state => ({
+  counter: state.storeRed.counter
+});
+
+const mDtoP = d => ({
+  updateStoreRed: o => d(updateStoreRed(o))
+});
+
+export default connect(mStoP, mDtoP)(Counter);
