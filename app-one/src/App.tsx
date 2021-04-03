@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import {
   extendTheme,
@@ -6,12 +6,9 @@ import {
 } from "@chakra-ui/react";
 import "./index.css";
 
-import { load } from "baseApp/store";
-import Card from "./components/Card";
+import { load, updateStore } from "baseApp/store";
 import Search from "baseApp/Search";
-import DataComponent from "baseApp/DataComponent";
-
-load("vpcs", console.log);
+import Card from "./components/Card";
 
 import Counter from './components/Counter';
 
@@ -22,7 +19,11 @@ const customTheme = extendTheme({
   }
 });
 
-const App = () => {
+const App = ({ updateStore, state }) => {
+  useEffect(() => {
+    load("vpcs", updateStore);
+  }, []);
+
   return (
     <div>
       <ChakraProvider theme={customTheme}>
@@ -39,6 +40,11 @@ const App = () => {
           <div>
             <Counter />
             <br />
+            <Search />
+            <br />
+            {state.store.filteredVpcs.map((vpc) => (
+              <Card vpc={vpc} />
+            ))}
           </div>
         </div>
       </ChakraProvider>
@@ -51,7 +57,7 @@ const mStoP = state => ({
 });
 
 const mDtoP = d => ({
-  
+  updateStore: o => d(updateStore(o))
 });
 
 export default connect(mStoP, mDtoP)(App);

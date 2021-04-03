@@ -1,12 +1,17 @@
 import React, { ReactElement } from "react";
-import { useSnapshot } from "valtio";
-import store, { VpcStore } from "../store";
+import { connect } from 'react-redux';
 
 const DataComponent: React.FC<{
-  children: (state: VpcStore) => ReactElement<any, any>;
-}> = ({ children }) => {
-  const state = useSnapshot(store);
+  children: (state: any) => ReactElement<any, any>;
+  state: any;
+}> = ({ children, state }) => {
   return children(state);
 };
 
-export default DataComponent;
+const mStoP = state => ({
+  state: state
+});
+const mDtoP = d => ({
+});
+
+export default connect(mStoP, mDtoP)(DataComponent);
